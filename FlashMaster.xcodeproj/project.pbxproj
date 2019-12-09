@@ -14,6 +14,7 @@
 		D42123562399125A0000A0F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D42123552399125A0000A0F0 /* Assets.xcassets */; };
 		D42123592399125A0000A0F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D42123572399125A0000A0F0 /* LaunchScreen.storyboard */; };
 		D473D7E0239DD3F1000BBEA8 /* Resource in Resources */ = {isa = PBXBuildFile; fileRef = D473D7DF239DD3F0000BBEA8 /* Resource */; };
+		D473D7E4239E9551000BBEA8 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D473D7E3239E9551000BBEA8 /* icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		D42123582399125A0000A0F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D421235A2399125A0000A0F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D473D7DF239DD3F0000BBEA8 /* Resource */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resource; sourceTree = "<group>"; };
+		D473D7E3239E9551000BBEA8 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 		D421234B239912590000A0F0 /* FlashMaster */ = {
 			isa = PBXGroup;
 			children = (
+				D473D7E3239E9551000BBEA8 /* icon.png */,
 				D473D7DF239DD3F0000BBEA8 /* Resource */,
 				D421234C239912590000A0F0 /* AppDelegate.swift */,
 				D4212350239912590000A0F0 /* ViewController.swift */,
@@ -130,6 +133,7 @@
 			files = (
 				D42123592399125A0000A0F0 /* LaunchScreen.storyboard in Resources */,
 				D473D7E0239DD3F1000BBEA8 /* Resource in Resources */,
+				D473D7E4239E9551000BBEA8 /* icon.png in Resources */,
 				D407E4DE239935640039F1C8 /* README.md in Resources */,
 				D42123562399125A0000A0F0 /* Assets.xcassets in Resources */,
 				D4212354239912590000A0F0 /* Main.storyboard in Resources */,
