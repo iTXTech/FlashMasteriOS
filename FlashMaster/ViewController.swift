@@ -20,8 +20,9 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, WKNavigationDelegate {
     @IBOutlet weak var webViewContainer: UIView!
+    @IBOutlet weak var launchView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,7 @@ class ViewController: UIViewController {
         let webView = WKWebView.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), configuration: conf)
         webView.scrollView.bounces = false
         webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.navigationDelegate = self
         self.webViewContainer.addSubview(webView)
         
         webView.topAnchor.constraint(equalTo: webViewContainer.topAnchor).isActive = true
@@ -51,5 +53,14 @@ class ViewController: UIViewController {
         webView.loadFileURL(url, allowingReadAccessTo: url)
         let request = URLRequest(url: url)
         webView.load(request)
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            UIView.transition(with: self.webViewContainer, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                self.webViewContainer.isHidden = false
+            })
+            self.launchView.isHidden = true
+        }
     }
 }

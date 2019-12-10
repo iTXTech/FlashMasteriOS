@@ -26,22 +26,22 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Copyright © 2019 iTX Technologies" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJs-C0-JOf">
-                                <rect key="frame" x="87" y="830" width="243.5" height="18"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="Jzj-ur-vew">
+                                <rect key="frame" x="135" y="268" width="144" height="144"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2019 iTX Technologies" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJs-C0-JOf">
+                                <rect key="frame" x="85.5" y="858" width="243.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="Jzj-ur-vew">
-                                <rect key="frame" x="135" y="268" width="144" height="144"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.11764705882352941" green="0.53333333333333333" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottomMargin" secondItem="zJs-C0-JOf" secondAttribute="bottom" constant="10" id="Gaz-ZH-c1i"/>
+                            <constraint firstAttribute="bottom" secondItem="zJs-C0-JOf" secondAttribute="bottom" constant="20" id="Kot-FM-9kb"/>
                             <constraint firstItem="Tzs-VF-XHH" firstAttribute="top" secondItem="Jzj-ur-vew" secondAttribute="bottom" constant="15" id="Vhy-tt-1Cl"/>
+                            <constraint firstItem="zJs-C0-JOf" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="W5I-IT-3yv"/>
                             <constraint firstItem="Tzs-VF-XHH" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Xxa-bz-dv9"/>
-                            <constraint firstItem="zJs-C0-JOf" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="dOB-RU-Ryb"/>
                             <constraint firstItem="Jzj-ur-vew" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="qI1-Uh-icO"/>
                             <constraint firstItem="Tzs-VF-XHH" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="xEq-YL-TPs"/>
                         </constraints>
