@@ -20,7 +20,7 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, WKNavigationDelegate {
+class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     @IBOutlet weak var webViewContainer: UIView!
     @IBOutlet weak var launchView: UIView!
     
@@ -42,6 +42,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         webView.scrollView.bounces = false
         webView.translatesAutoresizingMaskIntoConstraints = false
         webView.navigationDelegate = self
+        webView.uiDelegate = self
         self.webViewContainer.addSubview(webView)
         
         webView.topAnchor.constraint(equalTo: webViewContainer.topAnchor).isActive = true
@@ -56,11 +57,20 @@ class ViewController: UIViewController, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!){
+        webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             UIView.transition(with: self.webViewContainer, duration: 0.5, options: .transitionCrossDissolve, animations: {
                 self.webViewContainer.isHidden = false
             })
             self.launchView.isHidden = true
         }
+    }
+    
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration,
+                 for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if navigationAction.targetFrame == nil, let url = navigationAction.request.url {
+            UIApplication.shared.openURL(url)
+        }
+        return nil
     }
 }
