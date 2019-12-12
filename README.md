@@ -2,7 +2,7 @@
 
 [![Donate](https://img.shields.io/badge/alipay-donate-yellow.svg)](https://qr.alipay.com/FKX04751EZDP0SQ0BOT137)
 
-iTXTech FlashMaster App for iOS and iPad OS 9.0+
+iTXTech FlashMaster App for iOS 9.0+ and iPadOS 13.0+
 
 
 ## Introduction
