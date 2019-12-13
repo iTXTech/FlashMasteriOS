@@ -67,12 +67,39 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             let build:String = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
             let ac = UIAlertController(title: NSLocalizedString("aboutTitle", comment: ""),
                                        message: NSLocalizedString("aboutContent", comment: "")
-                                        .replacingOccurrences(of: "ver", with: version + " (" + build + ")"), preferredStyle: .alert)
+                                        .replacingOccurrences(of: "ver", with: version + " (" + build + ")")
+                                        .replacingOccurrences(of: "rev", with: Bundle.main.object(forInfoDictionaryKey: "REVISION") as! String), preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "GitHub", style: .default,
                                        handler: {_ in UIApplication.shared.openURL(URL(string: "https://github.com/iTXTech/FlashMasteriOS")!)}))
             ac.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default))
             self.present(ac, animated: true)
         }
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if navigationAction.request.url!.absoluteString.contains(".jpg") {
+            decisionHandler(.cancel)
+            URLSession.shared.dataTask(with: navigationAction.request.url!,
+                                       completionHandler: {data, response, error in
+                                        guard let data = data, error == nil else { return }
+                                        DispatchQueue.main.async() {
+                                            UIImageWriteToSavedPhotosAlbum(UIImage(data: data)!, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+                                        }
+            }).resume()
+        } else {
+            decisionHandler(.allow)
+        }
+    }
+    
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        var ac: UIAlertController
+        if let error = error {
+            ac = UIAlertController(title: NSLocalizedString("imageSaveFailed", comment: ""), message: error.localizedDescription, preferredStyle: .alert)
+        } else {
+            ac = UIAlertController(title: NSLocalizedString("imageSavedTitle", comment: ""), message: NSLocalizedString("imageSaved", comment: ""), preferredStyle: .alert)
+        }
+        ac.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default))
+        present(ac, animated: true)
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!){

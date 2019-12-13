@@ -1,5 +1,5 @@
-/*
-  Localizable.strings
+/* 
+  InfoPlist.strings
   FlashMaster
 
   Copyright © 2019 iTX Technologies
@@ -17,9 +17,4 @@
   limitations under the License.
 */
 
-"ok" = "好";
-"aboutTitle" = "关于 FlashMaster";
-"aboutContent" = "FlashMaster ver\nRevision: rev\nby PeratX@iTXTech.org\n\n遵循 Apache License 2.0 开源\n\nCopyright © 2019 iTX Technologies";
-"imageSaved" = "图片已保存到照片。";
-"imageSavedTitle" = "已保存";
-"imageSaveFailed" = "保存失败";
+NSPhotoLibraryAddUsageDescription = "保存图片";
