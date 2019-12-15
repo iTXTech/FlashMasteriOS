@@ -62,7 +62,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if let url = self.webView.url, url.absoluteString.contains("index.html#/about") {
+        if let url = self.webView.url, url.absoluteString.contains("index.html#/about"), self.webView.estimatedProgress == 1.0 {
             let version:String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
             let build:String = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
             let ac = UIAlertController(title: NSLocalizedString("aboutTitle", comment: ""),
