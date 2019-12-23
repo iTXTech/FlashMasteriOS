@@ -25,6 +25,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     @IBOutlet weak var launchView: UIView!
     
     var webView: WKWebView!
+    var lastUrl: String = "";
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,29 +41,30 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         conf.userContentController = userContentController
         userContentController.addUserScript(script)
 
-        self.webView = WKWebView.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), configuration: conf)
-        self.webView.scrollView.bounces = false
-        self.webView.translatesAutoresizingMaskIntoConstraints = false
-        self.webView.navigationDelegate = self
-        self.webView.uiDelegate = self
-        self.webViewContainer.addSubview(self.webView)
+        webView = WKWebView.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), configuration: conf)
+        webView.scrollView.bounces = false
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.navigationDelegate = self
+        webView.uiDelegate = self
+        webViewContainer.addSubview(webView)
         
-        self.webView.topAnchor.constraint(equalTo: webViewContainer.topAnchor).isActive = true
-        self.webView.rightAnchor.constraint(equalTo: webViewContainer.rightAnchor).isActive = true
-        self.webView.leftAnchor.constraint(equalTo: webViewContainer.leftAnchor).isActive = true
-        self.webView.bottomAnchor.constraint(equalTo: webViewContainer.bottomAnchor).isActive = true
+        webView.topAnchor.constraint(equalTo: webViewContainer.topAnchor).isActive = true
+        webView.rightAnchor.constraint(equalTo: webViewContainer.rightAnchor).isActive = true
+        webView.leftAnchor.constraint(equalTo: webViewContainer.leftAnchor).isActive = true
+        webView.bottomAnchor.constraint(equalTo: webViewContainer.bottomAnchor).isActive = true
         
-        self.webView.addObserver(self, forKeyPath: "URL", options: .new, context: nil)
-        self.webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+        webView.addObserver(self, forKeyPath: "URL", options: .new, context: nil)
+        webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
         
         let url = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "Resource")!
-        self.webView.loadFileURL(url, allowingReadAccessTo: url)
+        webView.loadFileURL(url, allowingReadAccessTo: url)
         let request = URLRequest(url: url)
-        self.webView.load(request)
+        webView.load(request)
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if let url = self.webView.url, url.absoluteString.contains("index.html#/about"), self.webView.estimatedProgress == 1.0 {
+        if let url = webView.url, url.absoluteString != lastUrl,
+            url.absoluteString.contains("index.html#/about"), webView.estimatedProgress == 1.0 {
             let version:String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
             let build:String = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
             let ac = UIAlertController(title: NSLocalizedString("aboutTitle", comment: ""),
@@ -72,8 +74,9 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             ac.addAction(UIAlertAction(title: "GitHub", style: .default,
                                        handler: {_ in UIApplication.shared.openURL(URL(string: "https://github.com/iTXTech/FlashMasteriOS")!)}))
             ac.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default))
-            self.present(ac, animated: true)
+            present(ac, animated: true)
         }
+        lastUrl = webView.url!.absoluteString
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
