@@ -28,7 +28,7 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Save Image</string>
 	<key>REVISION</key>
-	<string>85b861c</string>
+	<string>dfe1e54</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

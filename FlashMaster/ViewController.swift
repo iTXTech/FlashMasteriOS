@@ -25,7 +25,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     @IBOutlet weak var launchView: UIView!
     
     var webView: WKWebView!
-    var lastUrl: String = "";
+    var lastUrl: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         let source: String = "var meta = document.createElement('meta');" +
             "meta.name = 'viewport';" +
             "meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';" +
-            "var head = document.getElementsByTagName('head')[0];" + "head.appendChild(meta);";
+            "var head = document.getElementsByTagName('head')[0];" + "head.appendChild(meta);"
 
         let script: WKUserScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         let userContentController: WKUserContentController = WKUserContentController()
@@ -47,21 +47,21 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         webView.navigationDelegate = self
         webView.uiDelegate = self
         webViewContainer.addSubview(webView)
-        
+
         webView.topAnchor.constraint(equalTo: webViewContainer.topAnchor).isActive = true
         webView.rightAnchor.constraint(equalTo: webViewContainer.rightAnchor).isActive = true
         webView.leftAnchor.constraint(equalTo: webViewContainer.leftAnchor).isActive = true
         webView.bottomAnchor.constraint(equalTo: webViewContainer.bottomAnchor).isActive = true
-        
+
         webView.addObserver(self, forKeyPath: "URL", options: .new, context: nil)
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
-        
+
         let url = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "Resource")!
         webView.loadFileURL(url, allowingReadAccessTo: url)
         let request = URLRequest(url: url)
         webView.load(request)
     }
-    
+
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let url = webView.url, url.absoluteString != lastUrl,
             url.absoluteString.contains("index.html#/about"), webView.estimatedProgress == 1.0 {
@@ -76,9 +76,9 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             ac.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default))
             present(ac, animated: true)
         }
-        lastUrl = webView.url!.absoluteString
+        lastUrl = webView.url?.absoluteString ?? ""
     }
-    
+
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if navigationAction.request.url!.absoluteString.contains(".jpg") {
             decisionHandler(.cancel)
@@ -93,7 +93,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             decisionHandler(.allow)
         }
     }
-    
+
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         var ac: UIAlertController
         if let error = error {
@@ -104,7 +104,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         ac.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default))
         present(ac, animated: true)
     }
-    
+
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!){
         webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -114,7 +114,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             self.launchView.isHidden = true
         }
     }
-    
+
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration,
                  for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if navigationAction.targetFrame == nil, let url = navigationAction.request.url {
