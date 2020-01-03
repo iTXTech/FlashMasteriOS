@@ -2,7 +2,7 @@
   Localizable.strings
   FlashMaster
 
-  Copyright © 2019 iTX Technologies
+  Copyright © 2019-2020 iTX Technologies
   
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 
 "ok" = "OK";
 "aboutTitle" = "About FlashMaster";
-"aboutContent" = "FlashMaster ver\nRevision: rev\nby PeratX@iTXTech.org\n\nLicensed under Apache License 2.0\n\nCopyright © 2019 iTX Technologies";
+"aboutContent" = "FlashMaster ver\nRevision: rev\nby PeratX@iTXTech.org\n\nLicensed under Apache License 2.0\n\n© 2019-2020 iTX Technologies";
 "imageSaved" = "Image has been saved to Photos.";
 "imageSavedTitle" = "Saved";
 "imageSaveFailed" = "Save Failed";
