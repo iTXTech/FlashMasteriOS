@@ -28,7 +28,7 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Save Image</string>
 	<key>REVISION</key>
-	<string>e6935cc</string>
+	<string>ce55ffd</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
