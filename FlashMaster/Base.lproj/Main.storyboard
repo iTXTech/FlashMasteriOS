@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +26,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="Wf4-mP-f5B">
-                                        <rect key="frame" x="135" y="268" width="144" height="144"/>
+                                        <rect key="frame" x="143" y="279" width="128" height="128"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="Fak-Rn-0Fu"/>
+                                            <constraint firstAttribute="width" constant="128" id="MYZ-Px-f7l"/>
+                                        </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FlashMaster" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSK-Hf-JEg">
                                         <rect key="frame" x="115" y="427" width="184" height="42"/>
@@ -42,11 +46,11 @@
                                 <color key="backgroundColor" red="0.11764705882352941" green="0.53333333333333333" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="icQ-Om-RkB" firstAttribute="centerX" secondItem="bEH-hr-xnD" secondAttribute="centerX" id="2oM-dk-IIx"/>
-                                    <constraint firstItem="VSK-Hf-JEg" firstAttribute="top" secondItem="Wf4-mP-f5B" secondAttribute="bottom" constant="15" id="JFV-rd-Rw8"/>
+                                    <constraint firstItem="VSK-Hf-JEg" firstAttribute="top" secondItem="Wf4-mP-f5B" secondAttribute="bottom" constant="20" id="Cfz-YA-hvJ"/>
                                     <constraint firstItem="VSK-Hf-JEg" firstAttribute="centerX" secondItem="bEH-hr-xnD" secondAttribute="centerX" id="MB8-d7-lNm"/>
                                     <constraint firstItem="VSK-Hf-JEg" firstAttribute="centerY" secondItem="bEH-hr-xnD" secondAttribute="centerY" id="eyd-5u-wgx"/>
+                                    <constraint firstItem="Wf4-mP-f5B" firstAttribute="centerX" secondItem="bEH-hr-xnD" secondAttribute="centerX" id="fGq-WY-pBy"/>
                                     <constraint firstAttribute="bottom" secondItem="icQ-Om-RkB" secondAttribute="bottom" constant="20" id="xMv-h6-F5Y"/>
-                                    <constraint firstItem="Wf4-mP-f5B" firstAttribute="centerX" secondItem="bEH-hr-xnD" secondAttribute="centerX" id="xe5-9t-cEO"/>
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6cF-Qg-LZ7">
