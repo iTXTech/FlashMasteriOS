@@ -2,19 +2,20 @@
 //  ViewController.swift
 //  FlashMaster
 //
-//  Copyright © 2019-2020 iTX Technologies
+//  Copyright © 2019-2021 iTX Technologies
 //
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License, or (at your option) any later version.
 //
-//  http://www.apache.org/licenses/LICENSE-2.0
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
 //
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
+// You should have received a copy of the GNU Affero General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
 import UIKit
@@ -31,18 +32,18 @@ extension WKWebView {
         }), let superclass = target.superclass else {
             return
         }
-
+        
         let noInputAccessoryViewClassName = "\(superclass)_NoInputAccessoryView"
         var newClass: AnyClass? = NSClassFromString(noInputAccessoryViewClassName)
-
+        
         if newClass == nil, let targetClass = object_getClass(target), let classNameCString = noInputAccessoryViewClassName.cString(using: .ascii) {
             newClass = objc_allocateClassPair(targetClass, classNameCString, 0)
-
+            
             if let newClass = newClass {
                 objc_registerClassPair(newClass)
             }
         }
-
+        
         guard let noInputAccessoryClass = newClass, let originalMethod = class_getInstanceMethod(InputAccessoryHackHelper.self, #selector(getter: InputAccessoryHackHelper.inputAccessoryView)) else {
             return
         }
@@ -60,50 +61,59 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let source: String = "var meta = document.createElement('meta');" +
             "meta.name = 'viewport';" +
             "meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';" +
             "var head = document.getElementsByTagName('head')[0];" + "head.appendChild(meta);"
-
+        
         let script: WKUserScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         let userContentController: WKUserContentController = WKUserContentController()
         let conf = WKWebViewConfiguration()
         conf.userContentController = userContentController
         userContentController.addUserScript(script)
-
+        
         webView = WKWebView.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), configuration: conf)
         webView.scrollView.bounces = false
         webView.translatesAutoresizingMaskIntoConstraints = false
         webView.navigationDelegate = self
         webView.uiDelegate = self
+        webView.customUserAgent = "iTXTech FlashMasteriOS/" + getVersion() + "-" + getRevision()
         webViewContainer.addSubview(webView)
-
+        
         webView.topAnchor.constraint(equalTo: webViewContainer.topAnchor).isActive = true
         webView.rightAnchor.constraint(equalTo: webViewContainer.rightAnchor).isActive = true
         webView.leftAnchor.constraint(equalTo: webViewContainer.leftAnchor).isActive = true
         webView.bottomAnchor.constraint(equalTo: webViewContainer.bottomAnchor).isActive = true
-
+        
         webView.addObserver(self, forKeyPath: "URL", options: .new, context: nil)
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
         
         webView.removeInputAccessory()
-
+        
         let url = Bundle.main.url(forResource: "index", withExtension: "html", subdirectory: "Resource")!
         webView.loadFileURL(url, allowingReadAccessTo: url)
         let request = URLRequest(url: url)
         webView.load(request)
     }
-
+    
+    func getVersion() -> String{
+        let version:String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        let build:String = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
+        return version + " (" + build + ")"
+    }
+    
+    func getRevision() -> String{
+        return Bundle.main.object(forInfoDictionaryKey: "REVISION") as! String
+    }
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let url = webView.url, url.absoluteString != lastUrl,
             url.absoluteString.contains("index.html#/about"), webView.estimatedProgress == 1.0 {
-            let version:String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-            let build:String = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as! String
             let ac = UIAlertController(title: NSLocalizedString("aboutTitle", comment: ""),
                                        message: NSLocalizedString("aboutContent", comment: "")
-                                        .replacingOccurrences(of: "ver", with: version + " (" + build + ")")
-                                        .replacingOccurrences(of: "rev", with: Bundle.main.object(forInfoDictionaryKey: "REVISION") as! String), preferredStyle: .alert)
+                                        .replacingOccurrences(of: "ver", with: getVersion())
+                                        .replacingOccurrences(of: "rev", with: getRevision()), preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "GitHub", style: .default,
                                        handler: {_ in UIApplication.shared.openURL(URL(string: "https://github.com/iTXTech/FlashMasteriOS")!)}))
             ac.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default))
@@ -111,7 +121,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         }
         lastUrl = webView.url?.absoluteString ?? ""
     }
-
+    
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if navigationAction.request.url!.absoluteString.contains(".jpg") {
             decisionHandler(.cancel)
@@ -126,7 +136,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             decisionHandler(.allow)
         }
     }
-
+    
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         var ac: UIAlertController
         if let error = error {
@@ -137,7 +147,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         ac.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default))
         present(ac, animated: true)
     }
-
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!){
         webView.evaluateJavaScript("document.body.style.webkitTouchCallout='none';")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -147,7 +157,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             self.launchView.isHidden = true
         }
     }
-
+    
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration,
                  for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if navigationAction.targetFrame == nil, let url = navigationAction.request.url {
