@@ -28,7 +28,12 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Save Image</string>
 	<key>REVISION</key>
-	<string>4500497</string>
+	<string>7045c30</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+	</dict>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

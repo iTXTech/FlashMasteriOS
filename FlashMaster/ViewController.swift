@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  FlashMaster
 //
-//  Copyright © 2019-2021 iTX Technologies
+//  Copyright © 2019-2022 iTX Technologies
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
